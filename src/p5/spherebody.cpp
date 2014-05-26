@@ -21,6 +21,11 @@ SphereBody::SphereBody( Sphere* geom )
     torque = Vector3::Zero();
 }
 
+Vector3 SphereBody::acceleration( const Vector3 &x, const Vector3 &v )
+{
+    return force / mass;
+}
+
 Vector3 SphereBody::step_position( real_t dt, real_t motion_damping )
 {
     // Note: This function is here as a hint for an approach to take towards
@@ -28,7 +33,14 @@ Vector3 SphereBody::step_position( real_t dt, real_t motion_damping )
     // scheme
     // TODO return the delta in position dt in the future
 
-    return Vector3::Zero();
+    // retourne un vecteur qui représente le mouvement depuis la position
+    // actuelle
+
+    Vector3 acceleration = force / mass;
+    Vector3 velo = acceleration * dt;
+    Vector3 change = velo * dt;
+
+    return change;
 }
 
 Vector3 SphereBody::step_orientation( real_t dt, real_t motion_damping )
@@ -41,12 +53,19 @@ Vector3 SphereBody::step_orientation( real_t dt, real_t motion_damping )
     // vec.y = rotation along y axis
     // vec.z = rotation along z axis
 
+
+    // faire un quaternion et travailler sur l'existant ?
+
     return Vector3::Zero();
 }
 
 void SphereBody::apply_force( const Vector3& f, const Vector3& offset )
 {
     // TODO apply force/torque to sphere
+
+    float i = mass * (radius * radius) * (2 / 5);
+    torque = cross(f, offset);
+    angular_velocity  = torque / i;
 }
 
 }

@@ -12,6 +12,18 @@ Physics::~Physics()
     reset();
 }
 
+
+Derivative Physics::evaluate( SphereBody *sphere, real_t dt, const Derivative &d ) const
+{
+    Vector3 x = sphere->position + (d.dx * dt);
+    Vector3 v = sphere->velocity + (d.dv * dt);
+
+    Derivative output;
+    output.dx = v;
+    output.dv = sphere->acceleration(x, v);
+    return output;
+}
+
 void Physics::step( real_t dt )
 {
     // TODO step the world forward by dt. Need to detect collisions, apply
@@ -24,6 +36,33 @@ void Physics::step( real_t dt )
     // Note, when you change the position/orientation of a physics object,
     // change the position/orientation of the graphical object that represents
     // it
+
+    // doit iterer sur tous les objets comme les spheres itou
+
+    std::vector< SphereBody* >::iterator it;
+
+    for (it = spheres.begin(); it != spheres.end(); ++it)
+      {
+        Derivative a,b,c,d;
+        SphereBody *sb = *it;
+
+        a = evaluate( sb, 0.0f, Derivative() );
+        b = evaluate( sb, dt*0.5f, a );
+        c = evaluate( sb, dt*0.5f, b );
+        d = evaluate( sb, dt, c );
+
+        Vector3 dxdt = ( a.dx + 2.0f*(b.dx + c.dx) + d.dx ) * 1.0f / 6.0f;
+
+        Vector3 dvdt =
+          ( a.dv + 2.0f*(b.dv + c.dv) + d.dv ) * 1.0f / 6.0f;
+
+
+        std::cout << sb->position << ", ";
+        sb->position += dxdt * dt;
+        std::cout << sb->position << std::endl << sb->velocity << ", ";
+        sb->velocity += dvdt * dt;
+        std::cout << sb->position << std::endl;
+      }
 }
 
 void Physics::add_sphere( SphereBody* b )
@@ -85,9 +124,9 @@ void Physics::reset()
     planes.clear();
     triangles.clear();
     springs.clear();
-    
+
     gravity = Vector3::Zero();
-	collision_damping = 0.0;
+    collision_damping = 0.0;
 }
 
 }

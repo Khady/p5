@@ -15,11 +15,17 @@
 
 namespace _462 {
 
+typedef struct Derivative
+{
+    Vector3 dx;
+    Vector3 dv;
+} Derivative;
+
 class Physics
 {
 public:
     Vector3 gravity;
-	real_t collision_damping;
+    real_t collision_damping;
 
     Physics();
     ~Physics();
@@ -33,6 +39,7 @@ public:
     size_t num_triangles() const;
     void add_spring( Spring* s );
     size_t num_springs() const;
+    Derivative evaluate( SphereBody *sphere, real_t dt, const Derivative &d ) const;
 
     void reset();
 
