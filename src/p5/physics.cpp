@@ -20,7 +20,7 @@ Derivative Physics::evaluate( SphereBody *sphere, real_t dt, const Derivative &d
 
     Derivative output;
     output.dx = v;
-    output.dv = sphere->acceleration(x, v);
+    output.dv = sphere->step_position(dt, 0.0f);
     return output;
 }
 
@@ -37,8 +37,6 @@ void Physics::step( real_t dt )
     // change the position/orientation of the graphical object that represents
     // it
 
-    // doit iterer sur tous les objets comme les spheres itou
-
     std::vector< SphereBody* >::iterator it;
 
     for (it = spheres.begin(); it != spheres.end(); ++it)
@@ -46,15 +44,17 @@ void Physics::step( real_t dt )
         Derivative a,b,c,d;
         SphereBody *sb = *it;
 
+        sb->apply_force(gravity, Vector3::Zero());
+
         a = evaluate( sb, 0.0f, Derivative() );
         b = evaluate( sb, dt*0.5f, a );
         c = evaluate( sb, dt*0.5f, b );
         d = evaluate( sb, dt, c );
 
-        Vector3 dxdt = ( a.dx + 2.0f*(b.dx + c.dx) + d.dx ) * 1.0f / 6.0f;
+        Vector3 dxdt = ( a.dx + 2.0f*(b.dx + c.dx) + d.dx ) * (1.0f / 6.0f);
 
         Vector3 dvdt =
-          ( a.dv + 2.0f*(b.dv + c.dv) + d.dv ) * 1.0f / 6.0f;
+          ( a.dv + 2.0f*(b.dv + c.dv) + d.dv ) * (1.0f / 6.0f);
 
 
         std::cout << sb->position << ", ";

@@ -33,9 +33,6 @@ Vector3 SphereBody::step_position( real_t dt, real_t motion_damping )
     // scheme
     // TODO return the delta in position dt in the future
 
-    // retourne un vecteur qui représente le mouvement depuis la position
-    // actuelle
-
     Vector3 acceleration = force / mass;
     Vector3 velo = acceleration * dt;
     Vector3 change = velo * dt;
@@ -63,7 +60,9 @@ void SphereBody::apply_force( const Vector3& f, const Vector3& offset )
 {
     // TODO apply force/torque to sphere
 
+
     float i = mass * (radius * radius) * (2 / 5);
+    force = f;
     torque = cross(f, offset);
     angular_velocity  = torque / i;
 }
