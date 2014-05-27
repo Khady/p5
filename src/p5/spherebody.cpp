@@ -21,11 +21,6 @@ SphereBody::SphereBody( Sphere* geom )
     torque = Vector3::Zero();
 }
 
-Vector3 SphereBody::acceleration( const Vector3 &x, const Vector3 &v )
-{
-    return force / mass;
-}
-
 Vector3 SphereBody::step_position( real_t dt, real_t motion_damping )
 {
     // Note: This function is here as a hint for an approach to take towards
@@ -33,11 +28,11 @@ Vector3 SphereBody::step_position( real_t dt, real_t motion_damping )
     // scheme
     // TODO return the delta in position dt in the future
 
-    Vector3 acceleration = force / mass;
-    Vector3 velo = acceleration * dt;
-    Vector3 change = velo * dt;
+    // voir spring
 
-    return change;
+    Vector3 acc = force / mass;
+
+    return acc;
 }
 
 Vector3 SphereBody::step_orientation( real_t dt, real_t motion_damping )

@@ -40,6 +40,14 @@ algorithm
 cmath
 -
 
+/Users/louisroche/Code/graph/p5/src/math/matrix.hpp
+math/math.hpp
+/Users/louisroche/Code/graph/p5/src/math/math/math.hpp
+math/vector.hpp
+/Users/louisroche/Code/graph/p5/src/math/math/vector.hpp
+cassert
+-
+
 /Users/louisroche/Code/graph/p5/src/math/quaternion.hpp
 math/math.hpp
 /Users/louisroche/Code/graph/p5/src/math/math/math.hpp
@@ -111,6 +119,22 @@ math/vector.hpp
 /Users/louisroche/Code/graph/p5/src/p5/math/vector.hpp
 math/quaternion.hpp
 /Users/louisroche/Code/graph/p5/src/p5/math/quaternion.hpp
+
+/Users/louisroche/Code/graph/p5/src/p5/spherebody.cpp
+p5/spherebody.hpp
+/Users/louisroche/Code/graph/p5/src/p5/p5/spherebody.hpp
+math/vector.hpp
+/Users/louisroche/Code/graph/p5/src/p5/math/vector.hpp
+math/matrix.hpp
+/Users/louisroche/Code/graph/p5/src/p5/math/matrix.hpp
+scene/sphere.hpp
+/Users/louisroche/Code/graph/p5/src/p5/scene/sphere.hpp
+iostream
+-
+exception
+-
+algorithm
+-
 
 /Users/louisroche/Code/graph/p5/src/p5/spherebody.hpp
 scene/sphere.hpp

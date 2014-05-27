@@ -12,15 +12,18 @@ Physics::~Physics()
     reset();
 }
 
-
 Derivative Physics::evaluate( SphereBody *sphere, real_t dt, const Derivative &d ) const
 {
-    Vector3 x = sphere->position + (d.dx * dt);
+//    Vector3 x = sphere->position + (d.dx * dt);
+//    Vector3 x = sphere->step_orientation( dt, 0.0f);
     Vector3 v = sphere->velocity + (d.dv * dt);
 
     Derivative output;
     output.dx = v;
-    output.dv = sphere->step_position(dt, 0.0f);
+    output.dv = sphere->force / sphere->mass;
+    // output.dv = sphere->step_position(dt, 0.0f);
+    std::cout << "ACC: " << output.dv << std::endl;
+
     return output;
 }
 
@@ -56,10 +59,11 @@ void Physics::step( real_t dt )
         Vector3 dvdt =
           ( a.dv + 2.0f*(b.dv + c.dv) + d.dv ) * (1.0f / 6.0f);
 
-
-        std::cout << sb->position << ", ";
+        std::cout << "----------------------------" << std::endl;
+        std::cout << "Position: " << sb->position << ", ";
         sb->position += dxdt * dt;
-        std::cout << sb->position << std::endl << sb->velocity << ", ";
+        sb->sphere->position = sb->position;
+        std::cout << sb->position << std::endl << "Velocity: "<< sb->velocity << ", ";
         sb->velocity += dvdt * dt;
         std::cout << sb->position << std::endl;
       }
