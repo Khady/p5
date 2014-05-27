@@ -41,6 +41,8 @@ void Physics::step( real_t dt )
 
     std::vector< SphereBody* >::iterator it;
     std::vector< SphereBody* >::iterator it2;
+    std::vector< PlaneBody* >::iterator pt;
+    std::vector< TriangleBody* >::iterator tt;
 
     for (it = spheres.begin(); it != spheres.end(); ++it)
       {
@@ -71,6 +73,30 @@ void Physics::step( real_t dt )
             }
         }
 
+    for (pt = planes.begin(); pt != planes.end(); ++pt)
+      {
+        if (collides(*sb, **pt, collision_damping))
+          {
+            Vector3 u = sb->velocity - 2 * dot(sb->velocity, (*pt)->normal) * (*pt)->normal;
+            sb->velocity = u;
+          }
+      }
+
+    for (tt = triangles.begin(); tt != triangles.end(); ++tt)
+      {
+        if (collides(*sb, **tt, collision_damping))
+          {
+            Vector3 n =
+              normalize(
+                  cross(
+                    (*tt)->vertices[1] - (*tt)->vertices[0],
+                    (*tt)->vertices[2] - (*tt)->vertices[0]
+                    )
+                  );
+            Vector3 u = sb->velocity - 2 * dot(sb->velocity, n) * n;
+            sb->velocity = u;
+          }
+      }
 
         sb->apply_force(gravity, Vector3::Zero());
 

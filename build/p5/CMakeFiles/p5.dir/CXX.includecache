@@ -68,6 +68,10 @@ exception
 iostream
 -
 
+/Users/louisroche/Code/graph/p5/src/p5/collisions.cpp
+p5/collisions.hpp
+/Users/louisroche/Code/graph/p5/src/p5/p5/collisions.hpp
+
 /Users/louisroche/Code/graph/p5/src/p5/collisions.hpp
 scene/sphere.hpp
 /Users/louisroche/Code/graph/p5/src/p5/scene/sphere.hpp
@@ -77,32 +81,6 @@ p5/trianglebody.hpp
 /Users/louisroche/Code/graph/p5/src/p5/p5/trianglebody.hpp
 p5/planebody.hpp
 /Users/louisroche/Code/graph/p5/src/p5/p5/planebody.hpp
-
-/Users/louisroche/Code/graph/p5/src/p5/physics.cpp
-p5/physics.hpp
-/Users/louisroche/Code/graph/p5/src/p5/p5/physics.hpp
-
-/Users/louisroche/Code/graph/p5/src/p5/physics.hpp
-math/math.hpp
-/Users/louisroche/Code/graph/p5/src/p5/math/math.hpp
-math/quaternion.hpp
-/Users/louisroche/Code/graph/p5/src/p5/math/quaternion.hpp
-math/vector.hpp
-/Users/louisroche/Code/graph/p5/src/p5/math/vector.hpp
-p5/body.hpp
-/Users/louisroche/Code/graph/p5/src/p5/p5/body.hpp
-p5/spherebody.hpp
-/Users/louisroche/Code/graph/p5/src/p5/p5/spherebody.hpp
-p5/trianglebody.hpp
-/Users/louisroche/Code/graph/p5/src/p5/p5/trianglebody.hpp
-p5/planebody.hpp
-/Users/louisroche/Code/graph/p5/src/p5/p5/planebody.hpp
-p5/spring.hpp
-/Users/louisroche/Code/graph/p5/src/p5/p5/spring.hpp
-p5/collisions.hpp
-/Users/louisroche/Code/graph/p5/src/p5/p5/collisions.hpp
-vector
--
 
 /Users/louisroche/Code/graph/p5/src/p5/planebody.hpp
 p5/body.hpp
@@ -115,10 +93,6 @@ math/quaternion.hpp
 /Users/louisroche/Code/graph/p5/src/p5/spherebody.hpp
 scene/sphere.hpp
 /Users/louisroche/Code/graph/p5/src/p5/scene/sphere.hpp
-p5/body.hpp
-/Users/louisroche/Code/graph/p5/src/p5/p5/body.hpp
-
-/Users/louisroche/Code/graph/p5/src/p5/spring.hpp
 p5/body.hpp
 /Users/louisroche/Code/graph/p5/src/p5/p5/body.hpp
 
