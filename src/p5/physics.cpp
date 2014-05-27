@@ -68,8 +68,8 @@ void Physics::step( real_t dt )
                 - (sb2->mass * u2))
                 / sb->mass;
 
-              sb->velocity = u1;
-              sb2->velocity = u2;
+              sb->velocity = u1 - collision_damping * u1;
+              sb2->velocity = u2 - collision_damping * u2;
             }
         }
 
@@ -78,7 +78,7 @@ void Physics::step( real_t dt )
         if (collides(*sb, **pt, collision_damping))
           {
             Vector3 u = sb->velocity - 2 * dot(sb->velocity, (*pt)->normal) * (*pt)->normal;
-            sb->velocity = u;
+            sb->velocity = u - collision_damping * u;
           }
       }
 
@@ -86,15 +86,16 @@ void Physics::step( real_t dt )
       {
         if (collides(*sb, **tt, collision_damping))
           {
+            std::cout << "collision" << std::endl;
             Vector3 n =
               normalize(
                   cross(
-                    (*tt)->vertices[1] - (*tt)->vertices[0],
-                    (*tt)->vertices[2] - (*tt)->vertices[0]
+                    (*tt)->vertices[0] - (*tt)->vertices[1],
+                    (*tt)->vertices[1] - (*tt)->vertices[2]
                     )
                   );
             Vector3 u = sb->velocity - 2 * dot(sb->velocity, n) * n;
-            sb->velocity = u;
+            sb->velocity = u - (collision_damping * u);
           }
       }
 

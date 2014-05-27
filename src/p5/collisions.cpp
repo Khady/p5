@@ -17,12 +17,12 @@ bool collides( SphereBody& body1, SphereBody& body2, real_t collision_damping )
     return false;
 }
 
-Vector3 project_edge(const Vector3 &av, const Vector3 &bv, const Vector3 &pp)
+Vector3 project_edge(const Vector3 &a, const Vector3 &b, const Vector3 &pp)
 {
   return (
-      (dot((pp - av), (bv - av)) * (bv - av))
-      / squared_length(bv - av)
-      + av
+      (dot((pp - a), (b - a)) * (b - a))
+      / squared_length(b - a)
+      + a
       );
 }
 
@@ -44,16 +44,16 @@ bool collides( SphereBody& body1, TriangleBody& body2, real_t collision_damping 
   if (dot(n, body1.velocity) >= 0 && (abs(d) < body1.radius)) {
         return false;
   }
-  Vector3 pp = body2.position - d * n;
-
+  Vector3 pp = body1.position - d * n;
 
   Vector3 ppp1 = project_edge(av, bv, pp);
   Vector3 ppp2 = project_edge(bv, cv, pp);
-  Vector3 ppp3 = project_edge(cv, av, pp);
+  Vector3 ppp3 = project_edge(av, cv, pp);
 
   if ((dot(av - bv, ppp1 - bv) >= 0 && dot(bv - av, ppp1 - av) >= 0)
       && (dot(bv - cv, ppp2 - cv) >= 0 && dot(cv - bv, ppp2 - bv) >= 0)
-      && (dot(cv - av, ppp3 - av)>= 0 && dot(av - cv, ppp3 - cv) >= 0))
+      && (dot(cv - av, ppp3 - av)>= 0 && dot(av - cv, ppp3 - cv) >= 0)
+      && dot(n, body1.velocity) < 0 && (abs(d) < body1.radius))
     {
       return true;
     }
