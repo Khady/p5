@@ -4,8 +4,10 @@ namespace _462 {
 
 bool collides( SphereBody& body1, SphereBody& body2, real_t collision_damping )
 {
-    // TODO detect collision. If there is one, update velocity
-
+    if (distance(body1.position, body2.position) < body1.radius + body2.radius)
+      {
+        return true;
+      }
     return false;
 }
 

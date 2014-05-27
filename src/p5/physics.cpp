@@ -22,7 +22,6 @@ Derivative Physics::evaluate( SphereBody *sphere, real_t dt, const Derivative &d
     output.dx = v;
     output.dv = sphere->force / sphere->mass;
     // output.dv = sphere->step_position(dt, 0.0f);
-    std::cout << "ACC: " << output.dv << std::endl;
 
     return output;
 }
@@ -41,11 +40,37 @@ void Physics::step( real_t dt )
     // it
 
     std::vector< SphereBody* >::iterator it;
+    std::vector< SphereBody* >::iterator it2;
 
     for (it = spheres.begin(); it != spheres.end(); ++it)
       {
         Derivative a,b,c,d;
         SphereBody *sb = *it;
+
+      for (it2 = spheres.begin(); it2 != spheres.end(); ++it2)
+        {
+          if (*it != *it2 && collides(**it, **it2, collision_damping))
+            {
+              SphereBody *sb2 = *it2;
+
+              Vector3 v1 = sb->velocity - sb2->velocity;
+              Vector3 d = ((sb2->position - sb->position)
+                  / distance(sb->position, sb2->position));
+              Vector3 v22 = 2 * d
+                * (sb->mass / (sb->mass + sb2->mass))
+                * (dot(v1, d));
+              Vector3 u2 = sb2->velocity + v22;
+              Vector3 u1 =
+                ((sb->mass * sb->velocity)
+                + (sb2->mass * sb2->velocity)
+                - (sb2->mass * u2))
+                / sb->mass;
+
+              sb->velocity = u1;
+              sb2->velocity = u2;
+            }
+        }
+
 
         sb->apply_force(gravity, Vector3::Zero());
 
@@ -59,13 +84,9 @@ void Physics::step( real_t dt )
         Vector3 dvdt =
           ( a.dv + 2.0f*(b.dv + c.dv) + d.dv ) * (1.0f / 6.0f);
 
-        std::cout << "----------------------------" << std::endl;
-        std::cout << "Position: " << sb->position << ", ";
         sb->position += dxdt * dt;
         sb->sphere->position = sb->position;
-        std::cout << sb->position << std::endl << "Velocity: "<< sb->velocity << ", ";
         sb->velocity += dvdt * dt;
-        std::cout << sb->position << std::endl;
       }
 }
 
