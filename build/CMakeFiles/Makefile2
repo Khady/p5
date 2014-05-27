@@ -224,12 +224,12 @@ p5/preinstall:
 # Target rules for target p5/CMakeFiles/p5.dir
 
 # All Build rule for target.
-p5/CMakeFiles/p5.dir/all: application/CMakeFiles/application.dir/all
-p5/CMakeFiles/p5.dir/all: math/CMakeFiles/math.dir/all
 p5/CMakeFiles/p5.dir/all: glew/CMakeFiles/glew.dir/all
-p5/CMakeFiles/p5.dir/all: SDLmain/CMakeFiles/SDLmain.dir/all
-p5/CMakeFiles/p5.dir/all: scene/CMakeFiles/scene.dir/all
+p5/CMakeFiles/p5.dir/all: math/CMakeFiles/math.dir/all
+p5/CMakeFiles/p5.dir/all: application/CMakeFiles/application.dir/all
 p5/CMakeFiles/p5.dir/all: tinyxml/CMakeFiles/tinyxml.dir/all
+p5/CMakeFiles/p5.dir/all: scene/CMakeFiles/scene.dir/all
+p5/CMakeFiles/p5.dir/all: SDLmain/CMakeFiles/SDLmain.dir/all
 	$(MAKE) -f p5/CMakeFiles/p5.dir/build.make p5/CMakeFiles/p5.dir/depend
 	$(MAKE) -f p5/CMakeFiles/p5.dir/build.make p5/CMakeFiles/p5.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /Users/louisroche/Code/graph/p5/build/CMakeFiles  13 14 15 16 17 18 19
