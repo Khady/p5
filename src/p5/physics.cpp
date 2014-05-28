@@ -86,7 +86,6 @@ void Physics::step( real_t dt )
       {
         if (collides(*sb, **tt, collision_damping))
           {
-            std::cout << "collision" << std::endl;
             Vector3 n =
               normalize(
                   cross(
