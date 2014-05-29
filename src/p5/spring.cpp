@@ -18,9 +18,11 @@ Spring::Spring()
 
 void Spring::step( real_t dt )
 {
-    // TODO apply forces to attached bodies
+    Vector3 f1 = -constant * (body1_offset) - damping * (body1->position / dt);
+    body1->apply_force(f1, Vector3::Zero());
+
+    Vector3 f2 = -constant * body2_offset - damping * (body2->position / dt);
+    body2->apply_force(f2, Vector3::Zero());
 }
 
 }
-
-

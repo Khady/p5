@@ -98,6 +98,9 @@ void Physics::step( real_t dt )
 
 
         sb->force = Vector3::Zero();
+        for (SpringList::iterator si = springs.begin(); si != springs.end(); ++si) {
+              (*si)->step(dt);
+        }
         sb->apply_force(gravity, Vector3::Zero());
 
         a = evaluate( sb, 0.0f, Derivative() );
