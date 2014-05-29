@@ -149,7 +149,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="2">
         <position x="-0.0285" y="0.0" z="0.749"/>
         <radius v="0.0285"/>
@@ -159,7 +159,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="3">
         <position x="-0.057" y="0.0" z="0.896"/>
         <radius v="0.0285"/>
@@ -169,7 +169,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="4">
         <position x="0.057" y="0.0" z="0.896"/>
         <radius v="0.0285"/>
@@ -179,7 +179,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="5">
         <position x="-0.114" y="0.0" z="0.896"/>
         <radius v="0.0285"/>
@@ -189,7 +189,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="6">
         <position x="0.057" y="0.0" z="0.798"/>
         <radius v="0.0285"/>
@@ -199,7 +199,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="7">
         <position x="-0.0285" y="0.0" z="0.847"/>
         <radius v="0.0285"/>
@@ -209,7 +209,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="8">
         <position x="0.0" y="0.0" z="0.798"/>
         <radius v="0.0285"/>
@@ -219,7 +219,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="9">
         <position x="0.0285" y="0.0" z="0.749"/>
         <radius v="0.0285"/>
@@ -229,7 +229,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="10">
         <position x="0.0285" y="0.0" z="0.847"/>
         <radius v="0.0285"/>
@@ -239,7 +239,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="11">
         <position x="0.0" y="0.0" z="0.896"/>
         <radius v="0.0285"/>
@@ -249,7 +249,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="12">
         <position x="-0.057" y="0.0" z="0.798"/>
         <radius v="0.0285"/>
@@ -259,7 +259,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="13">
         <position x="0.0855" y="0.0" z="0.847"/>
         <radius v="0.0285"/>
@@ -269,7 +269,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="14">
         <position x="-0.0855" y="0.0" z="0.847"/>
         <radius v="0.0285"/>
@@ -279,7 +279,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="15">
         <position x="0.114" y="0.0" z="0.896"/>
         <radius v="0.0285"/>
@@ -289,7 +289,7 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <sphere material="cue">
         <position x="0.0" y="0.0" z="-0.7"/>
         <radius v="0.0285"/>
@@ -298,31 +298,31 @@
             <mass v="1.0"/>
         </body>
     </sphere>
-    
+
     <vertex name="p1" material="green">
         <position x="0.71" y="-0.0285" z="1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p2" material="green">
         <position x="0.71" y="-0.0285" z="-1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p3" material="green">
         <position x="-0.71" y="-0.0285" z="1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p4" material="green">
         <position x="-0.71" y="-0.0285" z="-1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p1"/>
@@ -332,7 +332,7 @@
             <id i="17"/>
         </body>
     </triangle>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p3"/>
@@ -348,25 +348,25 @@
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p6" material="green">
         <position x="0.71" y="-0.0285" z="0.05"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p7" material="green">
         <position x="0.71" y="0.0285" z="1.41"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p8" material="green">
         <position x="0.71" y="0.0285" z="0.05"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p5"/>
@@ -376,7 +376,7 @@
             <id i="19"/>
         </body>
     </triangle>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p7"/>
@@ -392,25 +392,25 @@
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p10" material="green">
         <position x="0.71" y="-0.0285" z="-0.05"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p11" material="green">
         <position x="0.71" y="0.0285" z="-1.41"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p12" material="green">
         <position x="0.71" y="0.0285" z="-0.05"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p9"/>
@@ -420,7 +420,7 @@
             <id i="21"/>
         </body>
     </triangle>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p11"/>
@@ -436,25 +436,25 @@
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p14" material="green">
         <position x="-0.71" y="-0.0285" z="-0.05"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p15" material="green">
         <position x="-0.71" y="0.0285" z="-1.41"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p16" material="green">
         <position x="-0.71" y="0.0285" z="-0.05"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p13"/>
@@ -464,7 +464,7 @@
             <id i="23"/>
         </body>
     </triangle>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p14"/>
@@ -480,25 +480,25 @@
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p18" material="green">
         <position x="-0.71" y="-0.0285" z="0.05"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p19" material="green">
         <position x="-0.71" y="0.0285" z="1.41"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p20" material="green">
         <position x="-0.71" y="0.0285" z="0.05"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p17"/>
@@ -508,7 +508,7 @@
             <id i="25"/>
         </body>
     </triangle>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p18"/>
@@ -524,25 +524,25 @@
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p22" material="green">
         <position x="0.64" y="-0.0285" z="1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p23" material="green">
         <position x="-0.64" y="0.0285" z="1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p24" material="green">
         <position x="0.64" y="0.0285" z="1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p22"/>
@@ -552,7 +552,7 @@
             <id i="27"/>
         </body>
     </triangle>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p22"/>
@@ -568,25 +568,25 @@
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p26" material="green">
         <position x="0.64" y="-0.0285" z="-1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p27" material="green">
         <position x="-0.64" y="0.0285" z="-1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-        
+
     <vertex name="p28" material="green">
         <position x="0.64" y="0.0285" z="-1.48"/>
         <normal x="0.0" y="-1.0" z="0.0"/>
         <tex_coord u="0.0" v="0.0"/>
     </vertex>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p25"/>
@@ -596,7 +596,7 @@
             <id i="29"/>
         </body>
     </triangle>
-    
+
     <triangle material="green">
         <position x="0.0" y="0.0" z="0.0"/>
         <vertex name="p26"/>

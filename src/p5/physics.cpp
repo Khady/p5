@@ -14,13 +14,14 @@ Physics::~Physics()
 
 Derivative Physics::evaluate( SphereBody *sphere, real_t dt, const Derivative &d ) const
 {
-//    Vector3 x = sphere->position + (d.dx * dt);
+    Vector3 x = sphere->position + (d.dx * dt);
 //    Vector3 x = sphere->step_orientation( dt, 0.0f);
     Vector3 v = sphere->velocity + (d.dv * dt);
 
     Derivative output;
     output.dx = v;
     output.dv = sphere->force / sphere->mass;
+    //output.dv = -10 * x - 1 * v;
     // output.dv = sphere->step_position(dt, 0.0f);
 
     return output;
@@ -28,17 +29,6 @@ Derivative Physics::evaluate( SphereBody *sphere, real_t dt, const Derivative &d
 
 void Physics::step( real_t dt )
 {
-    // TODO step the world forward by dt. Need to detect collisions, apply
-    // forces, and integrate positions and orientations.
-    //
-    // Note: put RK4 here, not in any of the physics bodies
-    //
-    // Must use the functions that you implemented
-    //
-    // Note, when you change the position/orientation of a physics object,
-    // change the position/orientation of the graphical object that represents
-    // it
-
     std::vector< SphereBody* >::iterator it;
     std::vector< SphereBody* >::iterator it2;
     std::vector< PlaneBody* >::iterator pt;
@@ -49,55 +39,65 @@ void Physics::step( real_t dt )
         Derivative a,b,c,d;
         SphereBody *sb = *it;
 
-      for (it2 = spheres.begin(); it2 != spheres.end(); ++it2)
-        {
-          if (*it != *it2 && collides(**it, **it2, collision_damping))
-            {
-              SphereBody *sb2 = *it2;
-
-              Vector3 v1 = sb->velocity - sb2->velocity;
-              Vector3 d = ((sb2->position - sb->position)
-                  / distance(sb->position, sb2->position));
-              Vector3 v22 = 2 * d
-                * (sb->mass / (sb->mass + sb2->mass))
-                * (dot(v1, d));
-              Vector3 u2 = sb2->velocity + v22;
-              Vector3 u1 =
-                ((sb->mass * sb->velocity)
-                + (sb2->mass * sb2->velocity)
-                - (sb2->mass * u2))
-                / sb->mass;
-
-              sb->velocity = u1 - collision_damping * u1;
-              sb2->velocity = u2 - collision_damping * u2;
-            }
-        }
-
-    for (pt = planes.begin(); pt != planes.end(); ++pt)
-      {
-        if (collides(*sb, **pt, collision_damping))
+        for (tt = triangles.begin(); tt != triangles.end(); ++tt)
           {
-            Vector3 u = sb->velocity - 2 * dot(sb->velocity, (*pt)->normal) * (*pt)->normal;
-            sb->velocity = u - collision_damping * u;
+            if (collides(*sb, **tt, collision_damping))
+              {
+                Vector3 n =
+                  normalize(
+                      cross(
+                        (*tt)->vertices[0] - (*tt)->vertices[1],
+                        (*tt)->vertices[1] - (*tt)->vertices[2]
+                        )
+                      );
+                Vector3 u = sb->velocity - 2 * dot(sb->velocity, n) * n;
+                if (squared_length(u) <= 1.0f)
+                  u = Vector3::Zero();
+                sb->velocity = u - (collision_damping * u);
+              }
           }
-      }
 
-    for (tt = triangles.begin(); tt != triangles.end(); ++tt)
-      {
-        if (collides(*sb, **tt, collision_damping))
+        for (it2 = spheres.begin(); it2 != spheres.end(); ++it2)
           {
-            Vector3 n =
-              normalize(
-                  cross(
-                    (*tt)->vertices[0] - (*tt)->vertices[1],
-                    (*tt)->vertices[1] - (*tt)->vertices[2]
-                    )
-                  );
-            Vector3 u = sb->velocity - 2 * dot(sb->velocity, n) * n;
-            sb->velocity = u - (collision_damping * u);
-          }
-      }
+            if (*it != *it2 && collides(**it, **it2, collision_damping))
+              {
+                SphereBody *sb2 = *it2;
 
+                Vector3 v1 = sb->velocity - sb2->velocity;
+                Vector3 d = ((sb2->position - sb->position)
+                    / distance(sb->position, sb2->position));
+                Vector3 v22 = 2 * d
+                  * (sb->mass / (sb->mass + sb2->mass))
+                  * (dot(v1, d));
+                Vector3 u2 = sb2->velocity + v22;
+                Vector3 u1 =
+                  ((sb->mass * sb->velocity)
+                   + (sb2->mass * sb2->velocity)
+                   - (sb2->mass * u2))
+                  / sb->mass;
+
+                if (squared_length(u1) <= 1.0f)
+                  u1 = Vector3::Zero();
+                if (squared_length(u2) <= 1.0f)
+                  u2 = Vector3::Zero();
+                sb->velocity = u1 - collision_damping * u1;
+                sb2->velocity = u2 - collision_damping * u2;
+              }
+          }
+
+        for (pt = planes.begin(); pt != planes.end(); ++pt)
+          {
+            if (collides(*sb, **pt, collision_damping))
+              {
+                Vector3 u = sb->velocity - 2 * dot(sb->velocity, (*pt)->normal) * (*pt)->normal;
+                if (squared_length(u) <= 1.0f)
+                  u = Vector3::Zero();
+                sb->velocity = u - collision_damping * u;
+              }
+          }
+
+
+        sb->force = Vector3::Zero();
         sb->apply_force(gravity, Vector3::Zero());
 
         a = evaluate( sb, 0.0f, Derivative() );

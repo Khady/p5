@@ -41,7 +41,7 @@ bool collides( SphereBody& body1, TriangleBody& body2, real_t collision_damping 
           )
         );
   real_t d = dot(a, n);
-  if (dot(n, body1.velocity) >= 0 && (abs(d) < body1.radius)) {
+  if (dot(n, body1.velocity) >= 0 && (fabs(d) < body1.radius)) {
         return false;
   }
   Vector3 pp = body1.position - d * n;
@@ -53,7 +53,7 @@ bool collides( SphereBody& body1, TriangleBody& body2, real_t collision_damping 
   if ((dot(av - bv, ppp1 - bv) >= 0 && dot(bv - av, ppp1 - av) >= 0)
       && (dot(bv - cv, ppp2 - cv) >= 0 && dot(cv - bv, ppp2 - bv) >= 0)
       && (dot(cv - av, ppp3 - av)>= 0 && dot(av - cv, ppp3 - cv) >= 0)
-      && dot(n, body1.velocity) < 0 && (abs(d) < body1.radius))
+      && dot(n, body1.velocity) <= 0 && (fabs(d) <= body1.radius))
     {
       return true;
     }
@@ -65,7 +65,7 @@ bool collides( SphereBody& body1, PlaneBody& body2, real_t collision_damping )
 {
   Vector3 a = body1.position - body2.position;
   real_t d = dot(a, body2.normal);
-  return (dot(body2.normal, body1.velocity) < 0 && abs(d) < body1.radius);
+  return (dot(body2.normal, body1.velocity) < 0 && fabs(d) < body1.radius);
 }
 
 }

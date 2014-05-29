@@ -53,11 +53,8 @@ Vector3 SphereBody::step_orientation( real_t dt, real_t motion_damping )
 
 void SphereBody::apply_force( const Vector3& f, const Vector3& offset )
 {
-    // TODO apply force/torque to sphere
-
-
     float i = mass * (radius * radius) * (2 / 5);
-    force = f;
+    force += f;
     torque = cross(f, offset);
     angular_velocity  = torque / i;
 }
