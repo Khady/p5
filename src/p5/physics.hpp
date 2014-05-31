@@ -21,6 +21,13 @@ typedef struct Derivative
     Vector3 dv;
 } Derivative;
 
+typedef struct State
+{
+  Vector3 x;
+  Vector3 v;
+  Vector3 force;
+} State;
+
 class Physics
 {
 public:
@@ -39,7 +46,8 @@ public:
     size_t num_triangles() const;
     void add_spring( Spring* s );
     size_t num_springs() const;
-    Derivative evaluate( SphereBody *sphere, real_t dt, const Derivative &d ) const;
+    Derivative evaluate( const State &state, real_t dt, const Derivative &d ) const;
+    State rk4(real_t dt, const State &state);
 
     void reset();
 

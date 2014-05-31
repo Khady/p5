@@ -12,19 +12,35 @@ Physics::~Physics()
     reset();
 }
 
-Derivative Physics::evaluate( SphereBody *sphere, real_t dt, const Derivative &d ) const
+Derivative Physics::evaluate( const State &state, real_t dt, const Derivative &d ) const
 {
-    Vector3 x = sphere->position + (d.dx * dt);
-//    Vector3 x = sphere->step_orientation( dt, 0.0f);
-    Vector3 v = sphere->velocity + (d.dv * dt);
+//    Vector3 x = sphere->position + (d.dx * dt);
+    Vector3 v = state.v + (d.dv * dt);
 
     Derivative output;
     output.dx = v;
-    output.dv = sphere->force / sphere->mass;
-    //output.dv = -10 * x - 1 * v;
-    // output.dv = sphere->step_position(dt, 0.0f);
+    output.dv = state.force;
 
     return output;
+}
+
+State Physics::rk4(real_t dt, const State &state)
+{
+  Derivative a,b,c,d;
+  a = evaluate( state, 0.0f, Derivative() );
+  b = evaluate( state, dt*0.5f, a );
+  c = evaluate( state, dt*0.5f, b );
+  d = evaluate( state, dt, c );
+
+  Vector3 dxdt = ( a.dx + 2.0f*(b.dx + c.dx) + d.dx ) * (1.0f / 6.0f);
+
+  Vector3 dvdt =
+    ( a.dv + 2.0f*(b.dv + c.dv) + d.dv ) * (1.0f / 6.0f);
+
+  State s;
+  s.x = dxdt * dt;
+  s.v = dvdt * dt;
+  return s;
 }
 
 void Physics::step( real_t dt )
@@ -36,7 +52,6 @@ void Physics::step( real_t dt )
 
     for (it = spheres.begin(); it != spheres.end(); ++it)
       {
-        Derivative a,b,c,d;
         SphereBody *sb = *it;
 
         for (tt = triangles.begin(); tt != triangles.end(); ++tt)
@@ -51,15 +66,15 @@ void Physics::step( real_t dt )
                         )
                       );
                 Vector3 u = sb->velocity - 2 * dot(sb->velocity, n) * n;
-                if (squared_length(u) <= 1.0f)
-                  u = Vector3::Zero();
                 sb->velocity = u - (collision_damping * u);
+                if (squared_length(sb->velocity) <= 1.0f)
+                  sb->velocity = Vector3::Zero();
               }
           }
 
         for (it2 = spheres.begin(); it2 != spheres.end(); ++it2)
           {
-            if (*it != *it2 && collides(**it, **it2, collision_damping))
+            if (collides(**it, **it2, collision_damping) && *it != *it2)
               {
                 SphereBody *sb2 = *it2;
 
@@ -76,12 +91,12 @@ void Physics::step( real_t dt )
                    - (sb2->mass * u2))
                   / sb->mass;
 
-                if (squared_length(u1) <= 1.0f)
-                  u1 = Vector3::Zero();
-                if (squared_length(u2) <= 1.0f)
-                  u2 = Vector3::Zero();
                 sb->velocity = u1 - collision_damping * u1;
                 sb2->velocity = u2 - collision_damping * u2;
+                if (squared_length(sb->velocity) <= 1.0f)
+                  sb->velocity = Vector3::Zero();
+                if (squared_length(sb2->velocity) <= 1.0f)
+                  sb2->velocity = Vector3::Zero();
               }
           }
 
@@ -90,9 +105,9 @@ void Physics::step( real_t dt )
             if (collides(*sb, **pt, collision_damping))
               {
                 Vector3 u = sb->velocity - 2 * dot(sb->velocity, (*pt)->normal) * (*pt)->normal;
-                if (squared_length(u) <= 1.0f)
-                  u = Vector3::Zero();
                 sb->velocity = u - collision_damping * u;
+                if (squared_length(sb->velocity) <= 1.0f)
+                  sb->velocity = Vector3::Zero();
               }
           }
 
@@ -103,20 +118,25 @@ void Physics::step( real_t dt )
         }
         sb->apply_force(gravity, Vector3::Zero());
 
-        a = evaluate( sb, 0.0f, Derivative() );
-        b = evaluate( sb, dt*0.5f, a );
-        c = evaluate( sb, dt*0.5f, b );
-        d = evaluate( sb, dt, c );
-
-        Vector3 dxdt = ( a.dx + 2.0f*(b.dx + c.dx) + d.dx ) * (1.0f / 6.0f);
-
-        Vector3 dvdt =
-          ( a.dv + 2.0f*(b.dv + c.dv) + d.dv ) * (1.0f / 6.0f);
-
-        sb->position += dxdt * dt;
+        // si pas de force et velocite, ne pas faire les tests
+        State initMove = {sb->position, sb->velocity, sb->force / sb->mass};
+        State s = rk4(dt, initMove);
+        sb->position += s.x;
         sb->sphere->position = sb->position;
-        sb->velocity += dvdt * dt;
-      }
+        sb->velocity += s.v;
+
+        real_t i = (2.0f / 5.0f) * sb->mass * (sb->radius * sb->radius);
+        Vector3 angular_accel = sb->torque / i;
+        State initRot = {Vector3::Zero(), sb->angular_velocity, angular_accel};
+        s = rk4(dt, initRot);
+        if (s.x != Vector3::Zero())
+          {
+            Quaternion q(s.x, length(s.x));
+            Quaternion qq = q * sb->orientation;
+            sb->orientation = qq;
+            sb->sphere->orientation = sb->orientation;
+          }
+     }
 }
 
 void Physics::add_sphere( SphereBody* b )
